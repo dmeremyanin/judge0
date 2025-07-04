@@ -9,8 +9,8 @@ gem 'httparty'
 gem 'puma'
 gem 'rack-cors'
 gem 'redis', '~> 4.0'
-gem 'resque', '~> 2.2.0'
-gem 'resque-scheduler', '~> 4.10.0'
+gem 'resque', '~> 2.7'
+gem 'resque-scheduler', '~> 4.11'
 gem 'will_paginate', '~> 3.2'
 
 # TODO: Loosen concurrent-ruby version constraint after upgrading to Rails 7.x
