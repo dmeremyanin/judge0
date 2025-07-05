@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.2'
 gem 'pg'
 
 gem 'active_model_serializers', '~> 0.10'
@@ -12,9 +12,6 @@ gem 'redis', '~> 4.0'
 gem 'resque', '~> 2.7'
 gem 'resque-scheduler', '~> 4.11'
 gem 'will_paginate', '~> 3.2'
-
-# TODO: Loosen concurrent-ruby version constraint after upgrading to Rails 7.x
-gem 'concurrent-ruby', '1.3.4'
 
 group :development do
   gem 'annotate', '~> 3.0'

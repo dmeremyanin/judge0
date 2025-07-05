@@ -21,12 +21,11 @@ class SessionsController < ActionController::API
   end
 
   def authenticate_request
-    head :unauthorized if safe_compare(Rails.application.secrets.authn_token, Rails.application.secrets.authn_header)
+    head :unauthorized if safe_compare(ENV["AUTHN_TOKEN"], ENV["AUTHN_HEADER"])
   end
 
   def authorize_request
-    head :forbidden unless Rails.application.secrets.authz_token.present?
-    head :forbidden if safe_compare(Rails.application.secrets.authz_token, Rails.application.secrets.authz_header)
+    head :forbidden if safe_compare(ENV["AUTHZ_TOKEN"], ENV["AUTHZ_HEADER"])
   end
 
   def check_maintenance
@@ -41,7 +40,7 @@ class SessionsController < ActionController::API
   def safe_compare(token, header)
     token = token.to_s
     header = header.to_s
-    return false unless token.present?
+    return false if token.blank?
     provided_token = (request.headers[header] || params[header]).to_s
     token.split.each do |value|
       return false if ActiveSupport::SecurityUtils.secure_compare(value, provided_token)

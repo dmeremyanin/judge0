@@ -1,16 +1,18 @@
-require_relative 'languages/archived'
 require_relative 'languages/active'
 
-ActiveRecord::Base.transaction do
-  Language.unscoped.delete_all
-  @languages.each_with_index do |language, index|
-    Language.create(
-      id: language[:id],
-      name: language[:name],
-      is_archived: language[:is_archived],
-      source_file: language[:source_file],
-      compile_cmd: language[:compile_cmd],
-      run_cmd: language[:run_cmd],
-    )
+Language.transaction do
+  language_ids = @languages.map { |language| language[:id] }
+  Language.unscoped.where(is_archived: false).where.not(id: language_ids).update_all(is_archived: true)
+
+  @languages.each do |language|
+    Language
+      .find_or_initialize_by(id: language[:id])
+      .update!(
+        name: language[:name],
+        is_archived: language[:is_archived],
+        source_file: language[:source_file],
+        compile_cmd: language[:compile_cmd],
+        run_cmd: language[:run_cmd],
+      )
   end
 end
