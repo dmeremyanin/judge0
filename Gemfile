@@ -11,6 +11,8 @@ gem 'rack-cors'
 gem 'redis', '~> 4.0'
 gem 'resque', '~> 2.7'
 gem 'resque-scheduler', '~> 4.11'
+gem 'sentry-rails'
+gem 'sentry-resque'
 gem 'will_paginate', '~> 3.2'
 
 group :development do
